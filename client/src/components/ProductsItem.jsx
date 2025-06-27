@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
-const ProductsItem = ({ id, image, name, price }) => {
+const ProductsItem = ({ id, image, name, price, onClick }) => {
   const images = Array.isArray(image) ? image : [image];
 
   return (
     <Link
       to={`/product/${id}`}
+      onClick={onClick}
       className="group border rounded-lg overflow-hidden hover:shadow-md transition-all duration-300"
     >
       {/* Image Carousel */}
@@ -34,7 +35,6 @@ const ProductsItem = ({ id, image, name, price }) => {
         </h3>
         <span className="text-sm text-gray-700 font-medium">${price}</span>
       </div>
-      
     </Link>
   );
 };

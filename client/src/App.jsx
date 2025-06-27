@@ -8,20 +8,27 @@ import Login from "./pages/Login";
 import Orders from "./pages/Orders";
 import Product from "./pages/Product";
 import PlaceOrder from "./pages/PlaceOrder";
+import NotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import SearchBar from "./components/SearchBar";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Verify } from "./pages/Verify";
 import { ForgotPassword } from "./pages/ForgotPassword";
+import SearchResults from "./pages/SearchResults";
 
 const App = () => {
   return (
     <div className="px-4 sm:px-[5vw] md:px-[7vw]">
+      {/* Notifications */}
       <ToastContainer />
+
+      {/* Persistent Layout Components */}
       <Navbar />
       <SearchBar />
+
+      {/* Routing */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/collection" element={<Collection />} />
@@ -34,7 +41,13 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/verify" element={<Verify />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/search" element={<SearchResults />} />
+
+        {/* ❗️ 404 Not Found Route (MUST be last) */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
+
+      {/* Footer */}
       <Footer />
     </div>
   );

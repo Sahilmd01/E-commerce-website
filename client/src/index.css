@@ -1,1 +1,23 @@
 @import "tailwindcss";
+
+a.active hr {
+  @apply block;
+}
+* {
+  font-family: Outfit;
+}
+.prata-regular {
+  font-family: "Prata", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+::-webkit-scrollbar {
+  display: hidden;
+}
+
+@media (max-width: 640px) {
+  a.active {
+    @apply bg-black text-white;
+  }
+}

@@ -4,8 +4,8 @@ import {
   FaTwitter,
   FaInstagram,
   FaPinterest,
-  FaMoneyBillWave
-} from 'react-icons/fa';
+  FaMoneyBillWave,
+} from "react-icons/fa";
 import {
   SiGooglepay,
   SiRazorpay,
@@ -16,6 +16,7 @@ import {
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const linkClass = "text-gray-400 hover:text-white transition-colors duration-300";
 
   return (
     <footer className="bg-gray-950 text-gray-300 border-t border-gray-800">
@@ -35,16 +36,16 @@ const Footer = () => {
               elevate your lifestyle with exceptional quality and care.
             </p>
             <div className="flex space-x-5">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300" aria-label="Facebook">
+              <a href="#" className={linkClass} aria-label="Facebook">
                 <FaFacebook className="w-5 h-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300" aria-label="Twitter">
+              <a href="#" className={linkClass} aria-label="Twitter">
                 <FaTwitter className="w-5 h-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300" aria-label="Instagram">
+              <a href="#" className={linkClass} aria-label="Instagram">
                 <FaInstagram className="w-5 h-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300" aria-label="Pinterest">
+              <a href="#" className={linkClass} aria-label="Pinterest">
                 <FaPinterest className="w-5 h-5" />
               </a>
             </div>
@@ -56,12 +57,7 @@ const Footer = () => {
             <ul className="space-y-3 text-sm">
               {["New Arrivals", "Best Sellers", "Luxury Collections", "Gift Cards", "Sale"].map((item) => (
                 <li key={item}>
-                  <a
-                    href="#"
-                    className="text-gray-400 hover:text-white transition-colors duration-300"
-                  >
-                    {item}
-                  </a>
+                  <a href="#" className={linkClass}>{item}</a>
                 </li>
               ))}
             </ul>
@@ -73,31 +69,11 @@ const Footer = () => {
               Customer Service
             </h3>
             <ul className="space-y-3 text-sm">
-              <li>
-                <a href="/Contact" className="text-gray-400 hover:text-white transition-colors duration-300">
-                  Contact Us
-                </a>
-              </li>
-              <li>
-                <a href="/NotFound" className="text-gray-400 hover:text-white transition-colors duration-300">
-                  FAQs
-                </a>
-              </li>
-              <li>
-                <a href="/NotFound" className="text-gray-400 hover:text-white transition-colors duration-300">
-                  Shipping Policy
-                </a>
-              </li>
-              <li>
-                <a href="/NotFound" className="text-gray-400 hover:text-white transition-colors duration-300">
-                  Returns & Refunds
-                </a>
-              </li>
-              <li>
-                <a href="/NotFound" className="text-gray-400 hover:text-white transition-colors duration-300">
-                  Size Guide
-                </a>
-              </li>
+              <li><a href="/Contact" className={linkClass}>Contact Us</a></li>
+              <li><a href="/NotFound" className={linkClass}>FAQs</a></li>
+              <li><a href="/NotFound" className={linkClass}>Shipping Policy</a></li>
+              <li><a href="/NotFound" className={linkClass}>Returns & Refunds</a></li>
+              <li><a href="/NotFound" className={linkClass}>Size Guide</a></li>
             </ul>
           </div>
 
@@ -105,31 +81,11 @@ const Footer = () => {
           <div>
             <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-6">Company</h3>
             <ul className="space-y-3 text-sm">
-              <li>
-                <a href="/About" className="text-gray-400 hover:text-white transition-colors duration-300">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="/NotFound" className="text-gray-400 hover:text-white transition-colors duration-300">
-                  Careers
-                </a>
-              </li>
-              <li>
-                <a href="/NotFound" className="text-gray-400 hover:text-white transition-colors duration-300">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href="/NotFound" className="text-gray-400 hover:text-white transition-colors duration-300">
-                  Press
-                </a>
-              </li>
-              <li>
-                <a href="/NotFound" className="text-gray-400 hover:text-white transition-colors duration-300">
-                  Sustainability
-                </a>
-              </li>
+              <li><a href="/About" className={linkClass}>About Us</a></li>
+              <li><a href="/NotFound" className={linkClass}>Careers</a></li>
+              <li><a href="/NotFound" className={linkClass}>Blog</a></li>
+              <li><a href="/NotFound" className={linkClass}>Press</a></li>
+              <li><a href="/NotFound" className={linkClass}>Sustainability</a></li>
             </ul>
           </div>
 
@@ -139,11 +95,17 @@ const Footer = () => {
             <p className="text-gray-400 text-sm mb-4">
               Join our mailing list for exclusive offers and early access to new collections.
             </p>
-            <form className="flex">
+            <form
+              className="flex flex-col sm:flex-row"
+              onSubmit={(e) => {
+                e.preventDefault();
+                alert("Thank you for subscribing!");
+              }}
+            >
               <input
                 type="email"
                 placeholder="Your email address"
-                className="bg-gray-900 text-white px-4 py-3 text-sm w-full focus:outline-none focus:ring-1 focus:ring-gray-500"
+                className="bg-gray-900 text-white px-4 py-3 text-sm w-full focus:outline-none focus:ring-1 focus:ring-gray-500 mb-2 sm:mb-0 sm:mr-2"
                 required
               />
               <button
@@ -160,38 +122,47 @@ const Footer = () => {
         </div>
 
         {/* Footer Bottom */}
-        <div className="mt-16 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
+        <div className="mt-16 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs text-gray-500">
             &copy; {currentYear} Vante & Co. All rights reserved.
           </p>
-          <div className="mt-4 md:mt-0 flex space-x-6">
+          <div className="flex space-x-6 flex-wrap justify-center">
             {["Privacy Policy", "Terms of Service", "Cookie Policy"].map((item) => (
-              <a
-                key={item}
-                href="#"
-                className="text-xs text-gray-500 hover:text-white transition-colors duration-300"
-              >
+              <a key={item} href="#" className="text-xs text-gray-500 hover:text-white transition-colors duration-300">
                 {item}
               </a>
             ))}
           </div>
-          <div className="mt-4 md:mt-0 flex items-center space-x-2">
-            <span className="text-xs text-gray-500">Secure payments with</span>
-            <div className="flex space-x-2">
-              {/* Payment Icons  add nedded  */}
-              <div className="flex space-x-4 text-gray-500">
-                <SiGooglepay size={28} title="Google Pay" />
-                <SiPhonepe size={28} title="PhonePe" />
-                <SiRazorpay size={28} title="Razorpay" />
-                <SiStripe size={28} title="Stripe" />
-                <SiPaytm size={28} title="Paytm" />
-              </div>
-              <div className="flex items-center gap-2 text-gray-700 text-sm">
-                <FaMoneyBillWave className="text-green-600" size={20} />
-                <span>Cash on Delivery</span>
+          <div className="flex flex-col md:flex-row items-center gap-2 text-xs text-gray-500">
+            <span>Secure payments with</span>
+            <div className="flex items-center space-x-3 text-gray-500">
+              <SiGooglepay size={24} title="Google Pay" aria-label="Google Pay" />
+              <SiPhonepe size={24} title="PhonePe" aria-label="PhonePe" />
+              <SiRazorpay size={24} title="Razorpay" aria-label="Razorpay" />
+              <SiStripe size={24} title="Stripe" aria-label="Stripe" />
+              <SiPaytm size={24} title="Paytm" aria-label="Paytm" />
+              <div className="flex items-center gap-1 text-green-500">
+                <FaMoneyBillWave size={18} />
+                <span className="text-xs text-gray-400">Cash on Delivery</span>
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Developer Credit */}
+        <div className="mt-8 text-center">
+          <p className="text-xs text-gray-600">
+            Developed by{" "}
+            <a
+              href="https://www.linkedin.com/in/codewithkinu"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white font-medium underline hover:text-blue-400 transition-colors duration-300"
+            >
+              Sahil
+            </a>
+          </p>
+
         </div>
       </div>
     </footer>

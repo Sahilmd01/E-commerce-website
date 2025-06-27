@@ -1,5 +1,6 @@
+// context/ShopContext.jsx
 import { createContext, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 
@@ -13,13 +14,11 @@ const ShopContextProvider = (props) => {
   const [products, setProducts] = useState([]);
   const [cartItems, setCartItems] = useState({});
   const [token, setToken] = useState("");
-
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [showSearchBar, setShowSearchBar] = useState(false);
 
   const navigate = useNavigate();
-  const location = useLocation();
 
   // -------------------- CART --------------------
   const addToCart = async (itemId, size) => {
@@ -29,7 +28,6 @@ const ShopContextProvider = (props) => {
     }
 
     let cartData = structuredClone(cartItems);
-
     if (cartData[itemId]) {
       cartData[itemId][size] = (cartData[itemId][size] || 0) + 1;
     } else {
@@ -46,7 +44,6 @@ const ShopContextProvider = (props) => {
           { headers: { token } }
         );
       } catch (error) {
-        console.log(error);
         toast.error(error.message);
       }
     }
@@ -65,7 +62,6 @@ const ShopContextProvider = (props) => {
           { headers: { token } }
         );
       } catch (error) {
-        console.log(error);
         toast.error(error.message);
       }
     }
@@ -75,13 +71,8 @@ const ShopContextProvider = (props) => {
     let totalCount = 0;
     for (const itemId in cartItems) {
       for (const size in cartItems[itemId]) {
-        try {
-          if (cartItems[itemId][size] > 0) {
-            totalCount += cartItems[itemId][size];
-          }
-        } catch (error) {
-          console.log(error);
-          toast.error("Something went wrong");
+        if (cartItems[itemId][size] > 0) {
+          totalCount += cartItems[itemId][size];
         }
       }
     }
@@ -95,32 +86,12 @@ const ShopContextProvider = (props) => {
       if (!itemInfo) continue;
 
       for (const size in cartItems[itemId]) {
-        try {
-          if (cartItems[itemId][size] > 0) {
-            totalAmount += itemInfo.price * cartItems[itemId][size];
-          }
-        } catch (error) {
-          console.log(error);
+        if (cartItems[itemId][size] > 0) {
+          totalAmount += itemInfo.price * cartItems[itemId][size];
         }
       }
     }
     return totalAmount;
-  };
-
-  // -------------------- SEARCH --------------------
-  const performSearch = (query) => {
-    setSearchQuery(query);
-
-    if (!query.trim()) {
-      setSearchResults([]);
-      return;
-    }
-
-    const results = products.filter((item) =>
-      item.name.toLowerCase().includes(query.toLowerCase())
-    );
-    setSearchResults(results);
-    return results;
   };
 
   // -------------------- PRODUCT & USER DATA --------------------
@@ -133,7 +104,6 @@ const ShopContextProvider = (props) => {
         toast.error(response.data.message);
       }
     } catch (error) {
-      console.error(error);
       toast.error(error.message);
     }
   };
@@ -151,47 +121,49 @@ const ShopContextProvider = (props) => {
         toast.error(response.data.message);
       }
     } catch (error) {
-      console.error(error);
       toast.error(error.message);
     }
   };
 
   useEffect(() => {
     getProductsData();
-  }, []);
 
-  useEffect(() => {
-    if (!token && localStorage.getItem("token")) {
-      const localToken = localStorage.getItem("token");
+    const localToken = localStorage.getItem("token");
+    if (localToken) {
       setToken(localToken);
       getUserCart(localToken);
     }
   }, []);
 
+  // -------------------- SEARCH --------------------
+  const performSearch = (query) => {
+    setSearchQuery(query);
+    if (!query.trim()) {
+      setSearchResults([]);
+      return;
+    }
+
+    const results = products.filter((item) =>
+      item.name.toLowerCase().includes(query.toLowerCase())
+    );
+    setSearchResults(results);
+  };
+
   // -------------------- CONTEXT VALUE --------------------
   const value = {
-    // products & backend
     products,
     currency,
     delivery_fee,
     backendUrl,
-
-    // cart
     cartItems,
     addToCart,
     getCartCount,
     updateQuantity,
     getCartAmount,
     setCartItems,
-
-    // auth
     token,
     setToken,
-
-    // navigation
     navigate,
-
-    // search
     searchQuery,
     setSearchQuery,
     searchResults,

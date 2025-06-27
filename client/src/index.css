@@ -1,20 +1,30 @@
 @import "tailwindcss";
 
-a.active hr {
-  @apply block;
-}
+/* 1. Global font */
 * {
-  font-family: Outfit;
+  font-family: 'Rubik', sans-serif;
 }
-.prata-regular {
-  font-family: "Prata", serif;
-  font-weight: 400;
+
+/* 2. Optional class to use Epilogue for specific elements */
+.epilogue {
+  font-family: 'Epilogue', sans-serif;
+  font-weight: 700;
   font-style: normal;
 }
 
 ::-webkit-scrollbar {
-  display: hidden;
+  display: hidden;        
 }
+body {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;     
+}
+
+
+a.active hr {
+  @apply block;
+}
+
 
 @media (max-width: 640px) {
   a.active {

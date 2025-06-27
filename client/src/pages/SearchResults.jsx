@@ -1,17 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
+// pages/SearchResults.jsx
+import React, { useContext } from "react";
 import { ShopContext } from "../context/ShopContext";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
 const SearchResults = () => {
-  const { searchQuery, searchResults, performSearch } = useContext(ShopContext);
-
-  useEffect(() => {
-    if (searchQuery) {
-      performSearch(searchQuery);
-    }
-  }, [searchQuery, performSearch]);
+  const { searchQuery, searchResults } = useContext(ShopContext);
 
   return (
     <div className="container mx-auto px-4 py-8 min-h-[60vh]">
@@ -47,7 +42,6 @@ const SearchResults = () => {
               key={product._id}
               className="group border rounded-lg overflow-hidden hover:shadow-md transition-all duration-300"
             >
-              {/* Image Carousel */}
               <div className="relative overflow-hidden h-64 bg-white">
                 <Swiper spaceBetween={0} slidesPerView={1}>
                   {product.image?.map((imgUrl, index) => (
@@ -68,7 +62,6 @@ const SearchResults = () => {
                 )}
               </div>
 
-              {/* Product Info */}
               <div className="p-4">
                 <h3 className="font-semibold text-lg mb-1 group-hover:text-primary transition-colors">
                   {product.name}

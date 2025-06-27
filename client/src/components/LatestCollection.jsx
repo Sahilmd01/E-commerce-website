@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 import Title from "./Title";
 import ProductsItem from "./ProductsItem";
@@ -6,39 +7,60 @@ import ProductsItem from "./ProductsItem";
 const LatestCollection = () => {
   const { products } = useContext(ShopContext);
   const [latestProducts, setLatestProducts] = useState([]);
+
   useEffect(() => {
-    if (products && products.length > 0) {
+    if (Array.isArray(products) && products.length > 0) {
       setLatestProducts(products.slice(0, 10));
     }
   }, [products]);
-  
+
   if (!products || products.length === 0) {
-    return <div>Loading products...</div>;
+    return (
+      <section className="min-h-[50vh] flex items-center justify-center">
+        <p className="text-xl font-light tracking-widest text-gray-500">
+          LOADING PRODUCTS...
+        </p>
+      </section>
+    );
   }
 
   return (
-    <div className="my-10">
-      <div className="text-center py-8 text-3xl">
-        <Title text1={"LATEST"} text2={"COLLECTIONS"} />
-        <p className="w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi,
-          amet doloremque asperiores, distinctio ipsum optio velit nemo rerum
-          reprehenderit, eaque ducimus ut repudiandae veniam illo!
-        </p>
+    <section className="bg-white py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <div className="mb-6">
+            <Title text1="LATEST" text2="COLLECTIONS" />
+          </div>
+          <p className="max-w-2xl mx-auto text-sm font-light tracking-wide text-gray-500 leading-relaxed">
+            Discover our exclusive curation of premium pieces that redefine modern elegance.
+            Each item is meticulously selected to embody timeless sophistication.
+          </p>
+        </div>
+
+        {/* Product Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+          {latestProducts.map((item) => (
+            <ProductsItem
+              key={item._id}
+              id={item._id}
+              image={item.image}
+              name={item.name}
+              price={item.price}
+            />
+          ))}
+        </div>
+
+        {/* View More */}
+        <div className="mt-16 text-center">
+          <Link to="/collection">
+            <button className="border border-black bg-transparent hover:bg-black hover:text-white transition-all duration-300 px-8 py-3 text-sm tracking-widest font-light">
+              VIEW FULL COLLECTION
+            </button>
+          </Link>
+        </div>
       </div>
-      {/* Rendering Products */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6">
-        {latestProducts.map((item, index) => (
-          <ProductsItem
-            key={index}
-            id={item._id}
-            image={item.image}
-            name={item.name}
-            price={item.price}
-          />
-        ))}
-      </div>
-    </div>
+    </section>
   );
 };
 

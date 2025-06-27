@@ -148,7 +148,7 @@ const Collection = () => {
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+    <div className="max-w-7xl mx-auto px-0">
       {/* Mobile filter dialog */}
       <div className={`fixed inset-0 z-40 lg:hidden ${mobileFiltersOpen ? "block" : "hidden"}`}>
         <div className="fixed inset-0 bg-black bg-opacity-25" onClick={() => setMobileFiltersOpen(false)} />

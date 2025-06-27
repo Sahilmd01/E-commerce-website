@@ -20,7 +20,7 @@ const BestSeller = () => {
   const currentProducts = bestSellers.slice(startIdx, startIdx + productsPerPage);
 
   return (
-    <div className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div className="max-w-7xl mx-auto px-0">
       <div className="text-center mb-12">
         <Title text1="BEST" text2="SELLERS" />
         <p className="mt-4 max-w-2xl mx-auto text-sm md:text-base text-gray-500 font-light tracking-wide">

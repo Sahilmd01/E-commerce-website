@@ -43,7 +43,7 @@ const OurPolicy = () => {
 
   return (
     <div className="bg-white py-16 sm:py-24 border-t border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-0">
         <div className="text-center mb-16">
           <h2 className="text-2xl sm:text-3xl font-light tracking-wider mb-4">OUR COMMITMENT TO YOU</h2>
           <p className="text-gray-500 max-w-2xl mx-auto text-sm sm:text-base">

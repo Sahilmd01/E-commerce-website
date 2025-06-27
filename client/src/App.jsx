@@ -21,7 +21,7 @@ import SearchResults from "./pages/SearchResults";
 
 const App = () => {
   return (
-    <div className="px-4 sm:px-[5vw] md:px-[7vw]">
+    <div className="px-2 sm:px-4 md:px-6 max-w-[100vw] mx-auto overflow-x-hidden">
       {/* Notifications */}
       <ToastContainer />
 
@@ -37,14 +37,13 @@ const App = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
         <Route path="/orders" element={<Orders />} />
-        <Route path="/profile" element={<MyProfile />} /> 
+        <Route path="/profile" element={<MyProfile />} />
         <Route path="/product/:productId" element={<Product />} />
         <Route path="/place-order" element={<PlaceOrder />} />
         <Route path="/about" element={<About />} />
         <Route path="/verify" element={<Verify />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/search" element={<SearchResults />} />
-
         <Route path="*" element={<NotFound />} />
       </Routes>
 

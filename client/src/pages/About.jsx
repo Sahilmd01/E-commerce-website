@@ -1,5 +1,5 @@
 import Title from "../components/Title";
-import NewsLetterBox from "../components/NewsLetterBox";
+import AppDownload from "../components/AppDownload";
 import { assets } from "../assets/assets";
 
 const About = () => {
@@ -138,7 +138,7 @@ const About = () => {
         </div>
       </div>
 
-      <NewsLetterBox />
+      <AppDownload />
     </div>
   );
 };

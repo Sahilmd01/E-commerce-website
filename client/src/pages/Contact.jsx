@@ -1,6 +1,6 @@
 import Title from "../components/Title";
-import NewsLetterBox from "../components/NewsLetterBox";
-import { assets } from "../assets/assets";
+import AppDownload from "../components/AppDownload";
+import { assets } from "../assets/assets"; //only use untill backend not connected 
 
 const Contact = () => {
   return (
@@ -188,7 +188,7 @@ const Contact = () => {
         </div>
       </div>
 
-      <NewsLetterBox />
+      <AppDownload />
     </div>
   );
 };

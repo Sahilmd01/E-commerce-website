@@ -10,7 +10,16 @@ const Collection = () => {
   const [showFilter, setShowFilter] = useState(false);
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
-  const [sortType, setSortType] = useState("relavent");
+  const [sortType, setSortType] = useState("relevent");
+
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 16; //add how many prodcts you wants in a page 
+  const totalPages = Math.ceil(filterProducts.length / itemsPerPage);
+  const currentItems = filterProducts.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   const toggleCategory = (e) => {
     if (category.includes(e.target.value)) {
@@ -19,6 +28,7 @@ const Collection = () => {
       setCategory((prev) => [...prev, e.target.value]);
     }
   };
+
   const toggleSubCategory = (e) => {
     if (subCategory.includes(e.target.value)) {
       setSubCategory((prev) => prev.filter((item) => item !== e.target.value));
@@ -45,26 +55,23 @@ const Collection = () => {
         subCategory.includes(item.subCategory)
       );
     }
+
+    setCurrentPage(1); // Reset to first page on filter change
     setFilterProducts(productsCopy);
   };
 
   const sortProducts = () => {
     let filteredProductsCopy = filterProducts.slice();
-    // filteredProductsCopy.sort((a, b) => b.price - a.price);
 
     switch (sortType) {
       case "low-high":
-        setFilterProducts(
-          filteredProductsCopy.sort((a, b) => a.price - b.price)
-        );
+        setFilterProducts(filteredProductsCopy.sort((a, b) => a.price - b.price));
         break;
       case "high-low":
-        setFilterProducts(
-          filteredProductsCopy.sort((a, b) => b.price - a.price)
-        );
+        setFilterProducts(filteredProductsCopy.sort((a, b) => b.price - a.price));
         break;
       default:
-        applyFilter();
+        applyFilter(); // Default to filtered list
         break;
     }
   };
@@ -76,6 +83,14 @@ const Collection = () => {
   useEffect(() => {
     sortProducts();
   }, [sortType]);
+
+  // Auto-scroll to top on page change
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [currentPage]);
 
   return (
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
@@ -100,33 +115,17 @@ const Collection = () => {
         >
           <p className="mb-3 text-sm font-medium">CATEGORIES</p>
           <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
-            <p className="flex gap-2">
-              <input
-                type="checkbox"
-                className="w-3"
-                value={"Men"}
-                onChange={toggleCategory}
-              />
-              Men
-            </p>
-            <p className="flex gap-2">
-              <input
-                type="checkbox"
-                className="w-3"
-                value={"Women"}
-                onChange={toggleCategory}
-              />
-              Women
-            </p>
-            <p className="flex gap-2">
-              <input
-                type="checkbox"
-                className="w-3"
-                value={"Kids"}
-                onChange={toggleCategory}
-              />
-              Kids
-            </p>
+            {["Men", "Women", "Kids"].map((cat) => (
+              <label key={cat} className="flex gap-2">
+                <input
+                  type="checkbox"
+                  className="w-3"
+                  value={cat}
+                  onChange={toggleCategory}
+                />
+                {cat}
+              </label>
+            ))}
           </div>
         </div>
         {/* Sub-Category Filter */}
@@ -135,35 +134,19 @@ const Collection = () => {
             showFilter ? "" : "hidden"
           } sm:block`}
         >
-          <p className="mb-3 text-sm font-medium">Type</p>
+          <p className="mb-3 text-sm font-medium">TYPE</p>
           <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
-            <p className="flex gap-2">
-              <input
-                type="checkbox"
-                className="w-3"
-                value={"Topwear"}
-                onChange={toggleSubCategory}
-              />
-              Topwear
-            </p>
-            <p className="flex gap-2">
-              <input
-                type="checkbox"
-                className="w-3"
-                value={"Bottomwear"}
-                onChange={toggleSubCategory}
-              />
-              Bottomwear
-            </p>
-            <p className="flex gap-2">
-              <input
-                type="checkbox"
-                className="w-3"
-                value={"Winterwear"}
-                onChange={toggleSubCategory}
-              />
-              Winterwear
-            </p>
+            {["Topwear", "Bottomwear", "Winterwear"].map((sub) => (
+              <label key={sub} className="flex gap-2">
+                <input
+                  type="checkbox"
+                  className="w-3"
+                  value={sub}
+                  onChange={toggleSubCategory}
+                />
+                {sub}
+              </label>
+            ))}
           </div>
         </div>
       </div>
@@ -172,19 +155,19 @@ const Collection = () => {
       <div className="flex-1">
         <div className="flex justify-between text-base sm:text-2xl mb-4">
           <Title text1={"ALL"} text2={"COLLECTIONS"} />
-          {/* Product sort */}
           <select
             className="border-2 border-gray-300 text-sm px-2"
             onChange={(e) => setSortType(e.target.value)}
           >
-            <option value="relevent">Sort by: Relavent</option>
+            <option value="relevent">Sort by: Relevant</option>
             <option value="low-high">Sort by: Low to High</option>
-            <option value="high-low">Sort by: High to low</option>
+            <option value="high-low">Sort by: High to Low</option>
           </select>
         </div>
-        {/* Map All Products */}
+
+        {/* Products */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6">
-          {filterProducts.map((item, index) => (
+          {currentItems.map((item, index) => (
             <ProductsItem
               key={index}
               id={item._id}
@@ -194,6 +177,23 @@ const Collection = () => {
             />
           ))}
         </div>
+
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="flex justify-center items-center gap-2 mt-8">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
+              <button
+                key={num}
+                className={`w-8 h-8 flex items-center justify-center rounded ${
+                  num === currentPage ? "bg-black text-white" : "bg-gray-200"
+                }`}
+                onClick={() => setCurrentPage(num)}
+              >
+                {num}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

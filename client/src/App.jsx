@@ -9,6 +9,7 @@ import Orders from "./pages/Orders";
 import Product from "./pages/Product";
 import PlaceOrder from "./pages/PlaceOrder";
 import NotFound from "./pages/NotFound";
+import MyProfile from "./pages/MyProfile";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import SearchBar from "./components/SearchBar";
@@ -36,6 +37,7 @@ const App = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
         <Route path="/orders" element={<Orders />} />
+        <Route path="/profile" element={<MyProfile />} /> 
         <Route path="/product/:productId" element={<Product />} />
         <Route path="/place-order" element={<PlaceOrder />} />
         <Route path="/about" element={<About />} />
@@ -43,7 +45,6 @@ const App = () => {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/search" element={<SearchResults />} />
 
-        {/* ❗️ 404 Not Found Route (MUST be last) */}
         <Route path="*" element={<NotFound />} />
       </Routes>
 

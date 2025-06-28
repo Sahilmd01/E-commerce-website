@@ -12,14 +12,25 @@ A fully featured **MERN Stack E-commerce Web Application** designed to deliver a
 
 ## 📸 Screenshots
 
-### 🏠 Homepage
-![Homepage](./screenshots/homepage.png)
+### 🏠 Admin Homepage desktop demo
+### 🔐 Admin Panel log in page
+![login_page](./ss/login.png)
 
-### 🛒 Product Page
-![Product Page](./screenshots/product-page.png)
+### 🔐 Admin Panel Item Add Page
+![Add_item](./ss/desktop_add.png)
 
-### 🔐 Admin Panel
-![Admin Panel](./screenshots/admin-panel.png)
+### 🔐 Admin Panel Item list 
+![item list](./ss/desktop_list.png)
+
+### 🔐 Admin Panel Order Received Page
+![item list](./ss/desktop_order.png)
+
+
+### Mobile View of 🔐 Admin Panel
+![navbar](./ss/ph_view1.png)
+![add item](./ss/ph_view2.png)
+![product added page](./ss/ph_view3.png)
+![order received page](./ss/ph_view4.png)
 
 ---
 
@@ -129,11 +140,7 @@ npm start
 ```
 User Login:
 Email: user@gmail.com  //you can create one too
-Password: 12345678
-
-Admin Login:
-Email: admin@example.com   // available soon 
-Password: adminpass        // available soon 
+Password: 12345678 
 ```
 
 ## ✅ Future Improvements

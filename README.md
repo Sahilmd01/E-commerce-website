@@ -27,10 +27,12 @@ A fully featured **MERN Stack E-commerce Web Application** designed to deliver a
 
 
 ### Mobile View of 🔐 Admin Panel
-![navbar](./ss/ph_view1.png)
-![add item](./ss/ph_view2.png)
-![product added page](./ss/ph_view3.png)
-![order received page](./ss/ph_view4.png)
+<div align="center">
+  <img src="./ss/ph_view1.png" width="22%" />
+  <img src="./ss/ph_view2.png" width="22%" />
+  <img src="./ss/ph_view3.png" width="22%" />
+  <img src="./ss/ph_view4.png" width="22%" />
+</div>
 
 ---
 

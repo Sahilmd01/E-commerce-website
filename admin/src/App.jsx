@@ -1,35 +1,56 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
+import React, { useEffect, useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Add from "./pages/Add";
+import List from "./pages/List";
+import Orders from "./pages/Orders";
+import Login from "./components/Login";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+export const backEndURL = import.meta.env.VITE_BACKEND_URL;
+export const currency = "$";
+
+const App = () => {
+  const [token, setToken] = useState(
+    localStorage.getItem("token") ? localStorage.getItem("token") : ""
+  );
+
+  useEffect(() => {
+    localStorage.setItem("token", token);
+  }, [token]);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="bg-gray-50 min-h-screen">
+      <ToastContainer />
+      {token === "" ? (
+        <Login setToken={setToken} />
+      ) : (
+        <>
+          <Navbar setToken={setToken} />
+          <hr />
 
-export default App
+          <div className="flex w-full">
+            {/* Sidebar only visible on medium screens and up */}
+            <div className="hidden md:block">
+              <Sidebar />
+            </div>
+
+            {/* Content area full width on mobile, with left margin on desktop */}
+            <div className="w-full md:w-[82%] mx-auto my-8 text-gray-600 text-base px-4 sm:px-6 md:ml-[max(5vw,25px)]">
+              <Routes>
+                <Route path="*" element={<Navigate to="/add" />} />
+                <Route path="/add" element={<Add token={token} />} />
+                <Route path="/list" element={<List token={token} />} />
+                <Route path="/orders" element={<Orders token={token} />} />
+              </Routes>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
+
+export default App;

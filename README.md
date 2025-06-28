@@ -5,8 +5,21 @@ A fully featured **MERN Stack E-commerce Web Application** designed to deliver a
 ---
 
 ## 🌐 Live Demo
-> Coming Soon
+> https://e-commerce-website-4w6a.vercel.app
 ## PORT 5000
+
+---
+
+## 📸 Screenshots
+
+### 🏠 Homepage
+![Homepage](./screenshots/homepage.png)
+
+### 🛒 Product Page
+![Product Page](./screenshots/product-page.png)
+
+### 🔐 Admin Panel
+![Admin Panel](./screenshots/admin-panel.png)
 
 ---
 
@@ -115,28 +128,13 @@ npm start
 
 ```
 User Login:
-Email: user@example.com
-Password: password123
+Email: user@gmail.com  //you can create one too
+Password: 12345678
 
 Admin Login:
-Email: admin@example.com
-Password: adminpass
+Email: admin@example.com   // available soon 
+Password: adminpass        // available soon 
 ```
-
----
-
-## 📸 Screenshots
-
-### 🏠 Homepage
-![Homepage](./screenshots/homepage.png)
-
-### 🛒 Product Page
-![Product Page](./screenshots/product-page.png)
-
-### 🔐 Admin Panel
-![Admin Panel](./screenshots/admin-panel.png)
-
----
 
 ## ✅ Future Improvements
 
@@ -159,5 +157,4 @@ This project is licensed under the MIT License.
 
 Developed by [Sahil](https://github.com/sahilmd01)
 **Project:** *Vanté & Co – Perfect Store with Luxury*
-
 

@@ -78,12 +78,15 @@ const OurPolicy = () => {
           <p className="text-gray-500 max-w-2xl mx-auto text-sm sm:text-base mb-6">
             Our customer care team is ready to assist with any questions about our policies or your order.
           </p>
-          <a href="/contact">
-            <button className="px-6 py-3 border border-black text-sm font-medium hover:bg-black hover:text-white transition-colors duration-300">
-              Contact Support
-            </button>
+          <a
+            href="/contact"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block px-6 py-3 border border-black text-sm font-medium hover:bg-black hover:text-white transition-colors duration-300"
+          >
+            Contact Support
           </a>
-
+          
         </div>
       </div>
     </div>

@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 import Title from "./Title";
 import ProductsItem from "./ProductsItem";
@@ -10,7 +9,7 @@ const LatestCollection = () => {
 
   useEffect(() => {
     if (Array.isArray(products) && products.length > 0) {
-      setLatestProducts(products.slice(0, 10));
+      setLatestProducts([...products].reverse().slice(0, 10));
     }
   }, [products]);
 
@@ -53,11 +52,15 @@ const LatestCollection = () => {
 
         {/* View More */}
         <div className="mt-16 text-center">
-          <Link to="/collection">
+          <a
+            href="/collection"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <button className="border border-black bg-transparent hover:bg-black hover:text-white transition-all duration-300 px-8 py-3 text-sm tracking-widest font-light">
               VIEW FULL COLLECTION
             </button>
-          </Link>
+          </a>
         </div>
       </div>
     </section>

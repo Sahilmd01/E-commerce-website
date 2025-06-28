@@ -1,23 +1,21 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
 import Title from "./Title";
 import ProductsItem from "./ProductsItem";
 
 const BestSeller = () => {
   const { products } = useContext(ShopContext);
-  const [bestSellers, setBestSellers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+
+  // Get latest bestsellers first
+  const bestSellers = [...products]
+    .filter((item) => item.bestseller)
+    .reverse(); // most recently added first
+
   const productsPerPage = 5;
-
-  useEffect(() => {
-    const bestProducts = products.filter((item) => item.bestseller);
-    setBestSellers(bestProducts);
-  }, [products]);
-
-  // Pagination logic
   const totalPages = Math.ceil(bestSellers.length / productsPerPage);
-  const startIdx = (currentPage - 1) * productsPerPage;
-  const currentProducts = bestSellers.slice(startIdx, startIdx + productsPerPage);
+  const start = (currentPage - 1) * productsPerPage;
+  const currentProducts = bestSellers.slice(start, start + productsPerPage);
 
   return (
     <div className="max-w-7xl mx-auto px-0">
@@ -28,15 +26,14 @@ const BestSeller = () => {
         </p>
       </div>
 
-      {/* Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-        {currentProducts.map((item) => (
+        {currentProducts.map(({ _id, image, name, price }) => (
           <ProductsItem
-            key={item._id}
-            id={item._id}
-            image={item.image}
-            name={item.name}
-            price={item.price}
+            key={_id}
+            id={_id}
+            image={image}
+            name={name}
+            price={price}
           />
         ))}
       </div>
@@ -44,19 +41,22 @@ const BestSeller = () => {
       {/* Pagination Controls */}
       {totalPages > 1 && (
         <div className="mt-10 flex justify-center space-x-2">
-          {Array.from({ length: totalPages }, (_, i) => (
-            <button
-              key={i + 1}
-              onClick={() => setCurrentPage(i + 1)}
-              className={`px-4 py-2 text-sm border ${
-                currentPage === i + 1
-                  ? "bg-black text-white"
-                  : "text-gray-700 hover:bg-gray-200"
-              } transition-all duration-200 rounded`}
-            >
-              {i + 1}
-            </button>
-          ))}
+          {Array.from({ length: totalPages }, (_, i) => {
+            const page = i + 1;
+            return (
+              <button
+                key={page}
+                onClick={() => setCurrentPage(page)}
+                className={`px-4 py-2 text-sm border rounded transition-all duration-200 ${
+                  currentPage === page
+                    ? "bg-black text-white"
+                    : "text-gray-700 hover:bg-gray-200"
+                }`}
+              >
+                {page}
+              </button>
+            );
+          })}
         </div>
       )}
     </div>
